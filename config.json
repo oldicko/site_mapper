@@ -1,6 +1,7 @@
 {
   "theme": "light",
-  "zone_buffer_radius_km": 40,
+  "zone_buffer_radius_km": 3500,
+  "prevent_overlaps": true,
   "html_title": "GeoExplorer Premium Map",
   "sidebar_title": "GeoExplorer Premium",
   "sidebar_subtitle": "Customizable Geographic Exploration Portal",

@@ -721,7 +721,8 @@
 };
     const config = {
   "theme": "light",
-  "zone_buffer_radius_km": 40,
+  "zone_buffer_radius_km": 3500,
+  "prevent_overlaps": true,
   "html_title": "GeoExplorer Premium Map",
   "sidebar_title": "GeoExplorer Premium",
   "sidebar_subtitle": "Customizable Geographic Exploration Portal",
@@ -831,47 +832,132 @@
     // Initialize all map shapes and markers
     function initMapLayers() {
       const bufferRadius = config.zone_buffer_radius_km || 40;
+      const preventOverlays = config.prevent_overlaps || false;
 
-      // 1. Create region overlays for each bucket
+      // Map to hold custom processed geojson overlays
+      const rawBuffers = {};
+      const bucketOverlayData = {};
+
+      // First, generate raw buffers for each bucket
       Object.entries(bucketData).forEach(([bucketName, info]) => {
-        const color = info.color;
         const hullCoords = info.hull;
-        const type = info.hull_type;
-
         if (hullCoords.length === 0) return;
 
         let geojson = null;
         try {
           if (hullCoords.length === 1) {
-            // Buffer a single point to make a circle
-            const pt = turf.point([hullCoords[0][1], hullCoords[0][0]]); // [lon, lat]
+            const pt = turf.point([hullCoords[0][1], hullCoords[0][0]]);
             geojson = turf.buffer(pt, bufferRadius, {units: 'kilometers'});
           } else if (hullCoords.length === 2) {
-            // Buffer a line to make a stretched capsule (stretched circle)
             const line = turf.lineString(hullCoords.map(c => [c[1], c[0]]));
             geojson = turf.buffer(line, bufferRadius, {units: 'kilometers'});
           } else {
-            // Buffer a polygon (closed loop)
             const coords = hullCoords.map(c => [c[1], c[0]]);
-            coords.push([hullCoords[0][1], hullCoords[0][0]]); // close loop
+            coords.push([hullCoords[0][1], hullCoords[0][0]]);
             const poly = turf.polygon([coords]);
             geojson = turf.buffer(poly, bufferRadius, {units: 'kilometers'});
           }
         } catch (e) {
           console.error("Error buffering region for " + bucketName + ":", e);
         }
-
         if (geojson) {
-          leafletOverlays[bucketName] = L.geoJSON(geojson, {
-            style: {
-              color: color,
-              fillColor: color,
-              fillOpacity: 0.15,
-              weight: 2,
-              dashArray: '5, 5'
-            }
-          }).addTo(map);
+          rawBuffers[bucketName] = geojson;
         }
+      });
+
+      // If we want to prevent overlaps, clip them using Voronoi cells of all sites
+      if (preventOverlays && siteData.length > 1) {
+        try {
+          // Convert all sites to Turf points
+          const points = siteData.map((site, index) => {
+            return turf.point([site.lon, site.lat], { index: index, bucket: site.bucket, name: site.name });
+          });
+          const pointsFC = turf.featureCollection(points);
+
+          // Bounding box covering a massive range to ensure no cutoff
+          const bbox = [-180, -85, 180, 85];
+          const voronoiPolys = turf.voronoi(pointsFC, { bbox: bbox });
+
+          // Map each site to its Voronoi cell polygon
+          const siteCells = new Map();
+          voronoiPolys.features.forEach((cell, cellIdx) => {
+            if (!cell) return;
+            // Find which site is inside this cell using booleanPointInPolygon
+            const ownerPoint = points.find(pt => turf.booleanPointInPolygon(pt, cell));
+            if (ownerPoint) {
+              siteCells.set(ownerPoint.properties.name, cell);
+            }
+          });
+
+          // Build bucket influence zones (union of cell polygons of its sites)
+          const bucketInfluenceZones = {};
+          Object.keys(bucketData).forEach(bucketName => {
+            const bucketSites = siteData.filter(s => s.bucket === bucketName);
+            let influenceZone = null;
+
+            bucketSites.forEach(site => {
+              const cell = siteCells.get(site.name);
+              if (!cell) return;
+              if (!influenceZone) {
+                influenceZone = JSON.parse(JSON.stringify(cell)); // deep clone
+              } else {
+                try {
+                  influenceZone = turf.union(influenceZone, cell);
+                } catch (unionErr) {
+                  console.error("Union error for bucket " + bucketName + ":", unionErr);
+                }
+              }
+            });
+
+            if (influenceZone) {
+              bucketInfluenceZones[bucketName] = influenceZone;
+            }
+          });
+
+          // Intersect raw buffer of each bucket with its influence zone
+          Object.entries(rawBuffers).forEach(([bucketName, rawBuffer]) => {
+            const influenceZone = bucketInfluenceZones[bucketName];
+            let finalGeom = rawBuffer;
+
+            if (influenceZone) {
+              try {
+                const intersection = turf.intersect(rawBuffer, influenceZone);
+                if (intersection) {
+                  finalGeom = intersection;
+                }
+              } catch (intersectErr) {
+                console.error("Intersection error for bucket " + bucketName + ":", intersectErr);
+              }
+            }
+
+            bucketOverlayData[bucketName] = finalGeom;
+          });
+        } catch (voronoiErr) {
+          console.error("Error computing Voronoi partition, falling back to raw buffers:", voronoiErr);
+          // Fallback to raw buffers
+          Object.entries(rawBuffers).forEach(([bucketName, rawBuffer]) => {
+            bucketOverlayData[bucketName] = rawBuffer;
+          });
+        }
+      } else {
+        // Just use raw buffers if preventOverlays is false or <= 1 site
+        Object.entries(rawBuffers).forEach(([bucketName, rawBuffer]) => {
+          bucketOverlayData[bucketName] = rawBuffer;
+        });
+      }
+
+      // Add overlays to map
+      Object.entries(bucketOverlayData).forEach(([bucketName, geojson]) => {
+        const color = bucketData[bucketName].color;
+        leafletOverlays[bucketName] = L.geoJSON(geojson, {
+          style: {
+            color: color,
+            fillColor: color,
+            fillOpacity: 0.15,
+            weight: 2,
+            dashArray: '5, 5'
+          }
+        }).addTo(map);
       });
 
       // 2. Create markers for each site

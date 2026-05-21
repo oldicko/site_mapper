@@ -14,6 +14,7 @@ import argparse
 DEFAULT_CONFIG = {
     "theme": "dark",
     "zone_buffer_radius_km": 40,
+    "prevent_overlaps": False,
     "html_title": "GeoBucket Site Explorer",
     "sidebar_title": "GeoBucket Explorer",
     "sidebar_subtitle": "Interactive site planner & geographic regions",
