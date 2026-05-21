@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light-mode">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,15 +14,73 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   
   <style>
+    /* Dark Theme (Default) */
     :root {
       --bg-dark: #0d0d0f;
-      --panel-bg: rgba(18, 18, 22, 0.7);
+      --panel-bg: rgba(18, 18, 22, 0.75);
       --panel-border: rgba(255, 255, 255, 0.08);
       --text-main: #f3f4f6;
       --text-muted: #9ca3af;
       --accent: #3b82f6;
       --card-hover: rgba(255, 255, 255, 0.04);
       --font-family: 'Outfit', sans-serif;
+      --stat-card-bg: rgba(255, 255, 255, 0.02);
+      --stat-card-border: rgba(255, 255, 255, 0.04);
+      --search-bg: rgba(0, 0, 0, 0.2);
+      --search-border: var(--panel-border);
+      --search-focus-bg: rgba(0, 0, 0, 0.4);
+      --search-focus-border: rgba(255, 255, 255, 0.2);
+      --search-focus-shadow: rgba(255, 255, 255, 0.05);
+      --h1-gradient-start: #fff;
+      --scroll-thumb: rgba(255, 255, 255, 0.1);
+      --scroll-thumb-hover: rgba(255, 255, 255, 0.2);
+      --card-bg: rgba(255, 255, 255, 0.01);
+      --bucket-card-hover-border: rgba(255, 255, 255, 0.15);
+      --bucket-card-hover-bg: rgba(255, 255, 255, 0.02);
+      --slider-bg: rgba(255, 255, 255, 0.1);
+      --slider-dot: var(--text-muted);
+      --site-list-bg: rgba(0, 0, 0, 0.15);
+      --popup-bg: rgba(18, 18, 22, 0.9);
+      --popup-shadow: rgba(0, 0, 0, 0.6);
+      --popup-badge-bg: rgba(255, 255, 255, 0.05);
+      --popup-badge-border: rgba(255, 255, 255, 0.05);
+      --popup-badge-text: var(--text-muted);
+      --popup-coords-text: rgba(255, 255, 255, 0.3);
+      --sidebar-shadow: rgba(0, 0, 0, 0.5);
+    }
+
+    /* Light Theme Overrides */
+    .light-mode {
+      --bg-dark: #f8fafc;
+      --panel-bg: rgba(255, 255, 255, 0.75);
+      --panel-border: rgba(0, 0, 0, 0.08);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --accent: #3b82f6;
+      --card-hover: rgba(0, 0, 0, 0.02);
+      --stat-card-bg: rgba(0, 0, 0, 0.02);
+      --stat-card-border: rgba(0, 0, 0, 0.04);
+      --search-bg: rgba(255, 255, 255, 0.8);
+      --search-border: rgba(0, 0, 0, 0.08);
+      --search-focus-bg: #ffffff;
+      --search-focus-border: rgba(0, 0, 0, 0.15);
+      --search-focus-shadow: rgba(0, 0, 0, 0.03);
+      --h1-gradient-start: #0f172a;
+      --scroll-thumb: rgba(0, 0, 0, 0.1);
+      --scroll-thumb-hover: rgba(0, 0, 0, 0.2);
+      --card-bg: rgba(0, 0, 0, 0.005);
+      --bucket-card-hover-border: rgba(0, 0, 0, 0.12);
+      --bucket-card-hover-bg: rgba(0, 0, 0, 0.02);
+      --slider-bg: rgba(0, 0, 0, 0.06);
+      --slider-dot: #fff;
+      --site-list-bg: rgba(0, 0, 0, 0.02);
+      --popup-bg: rgba(255, 255, 255, 0.9);
+      --popup-shadow: rgba(0, 0, 0, 0.1);
+      --popup-badge-bg: rgba(0, 0, 0, 0.03);
+      --popup-badge-border: rgba(0, 0, 0, 0.04);
+      --popup-badge-text: var(--text-muted);
+      --popup-coords-text: rgba(0, 0, 0, 0.4);
+      --sidebar-shadow: rgba(0, 0, 0, 0.06);
     }
 
     * {
@@ -69,7 +127,7 @@
       z-index: 1000;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 20px 40px var(--sidebar-shadow);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -82,7 +140,7 @@
       font-size: 20px;
       font-weight: 700;
       letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #fff 30%, var(--text-muted) 100%);
+      background: linear-gradient(135deg, var(--h1-gradient-start) 30%, var(--text-muted) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 4px;
@@ -104,8 +162,8 @@
     }
 
     .stat-card {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.04);
+      background: var(--stat-card-bg);
+      border: 1px solid var(--stat-card-border);
       border-radius: 10px;
       padding: 12px;
       text-align: center;
@@ -135,8 +193,8 @@
     .search-input {
       width: 100%;
       padding: 12px 16px 12px 40px;
-      background: rgba(0, 0, 0, 0.2);
-      border: 1px solid var(--panel-border);
+      background: var(--search-bg);
+      border: 1px solid var(--search-border);
       border-radius: 10px;
       color: var(--text-main);
       font-family: var(--font-family);
@@ -146,9 +204,9 @@
     }
 
     .search-input:focus {
-      border-color: rgba(255, 255, 255, 0.2);
-      background: rgba(0, 0, 0, 0.4);
-      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.05);
+      border-color: var(--search-focus-border);
+      background: var(--search-focus-bg);
+      box-shadow: 0 0 0 2px var(--search-focus-shadow);
     }
 
     .search-icon {
@@ -179,17 +237,17 @@
     }
 
     .sidebar-content::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.1);
+      background: var(--scroll-thumb);
       border-radius: 3px;
     }
 
     .sidebar-content::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: var(--scroll-thumb-hover);
     }
 
     /* Bucket Card styling */
     .bucket-card {
-      background: rgba(255, 255, 255, 0.01);
+      background: var(--card-bg);
       border: 1px solid var(--panel-border);
       border-radius: 12px;
       margin-bottom: 12px;
@@ -198,8 +256,8 @@
     }
 
     .bucket-card:hover {
-      border-color: rgba(255, 255, 255, 0.15);
-      background: rgba(255, 255, 255, 0.02);
+      border-color: var(--bucket-card-hover-border);
+      background: var(--bucket-card-hover-bg);
     }
 
     .bucket-header {
@@ -239,7 +297,7 @@
     }
 
     .site-count-badge {
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--stat-card-bg);
       border: 1px solid var(--panel-border);
       color: var(--text-muted);
       font-size: 11px;
@@ -269,10 +327,10 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: var(--slider-bg);
       transition: .2s;
       border-radius: 18px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--panel-border);
     }
 
     .slider:before {
@@ -282,7 +340,7 @@
       width: 12px;
       left: 2px;
       bottom: 2px;
-      background-color: var(--text-muted);
+      background-color: var(--slider-dot);
       transition: .2s;
       border-radius: 50%;
     }
@@ -303,7 +361,7 @@
       overflow: hidden;
       transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       border-top: 0 solid var(--panel-border);
-      background: rgba(0, 0, 0, 0.15);
+      background: var(--site-list-bg);
     }
 
     .bucket-card.expanded .site-list {
@@ -350,7 +408,6 @@
       justify-content: center;
       width: 20px;
       height: 20px;
-      transform: translate(-10px, -10px);
     }
 
     .marker-core {
@@ -387,19 +444,19 @@
 
     /* Premium Leaflet Popup Override */
     .leaflet-popup-content-wrapper {
-      background: rgba(18, 18, 22, 0.9) !important;
+      background: var(--popup-bg) !important;
       backdrop-filter: blur(12px) !important;
       -webkit-backdrop-filter: blur(12px) !important;
       border: 1px solid var(--panel-border) !important;
       color: var(--text-main) !important;
       font-family: var(--font-family) !important;
       border-radius: 12px !important;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6) !important;
+      box-shadow: 0 15px 35px var(--popup-shadow) !important;
       padding: 4px;
     }
 
     .leaflet-popup-tip {
-      background: rgba(18, 18, 22, 0.9) !important;
+      background: var(--popup-bg) !important;
       border-left: 1px solid var(--panel-border) !important;
       border-bottom: 1px solid var(--panel-border) !important;
       box-shadow: none !important;
@@ -409,7 +466,7 @@
       font-size: 15px;
       font-weight: 600;
       margin-bottom: 4px;
-      color: #fff;
+      color: var(--text-main);
     }
 
     .popup-bucket {
@@ -417,16 +474,16 @@
       align-items: center;
       gap: 6px;
       font-size: 11px;
-      color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.05);
+      color: var(--popup-badge-text);
+      background: var(--popup-badge-bg);
       padding: 2px 8px;
       border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--popup-badge-border);
     }
 
     .popup-coords {
       font-size: 10px;
-      color: rgba(255, 255, 255, 0.3);
+      color: var(--popup-coords-text);
       margin-top: 8px;
       font-family: monospace;
     }
@@ -486,6 +543,9 @@
 
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <!-- Turf.js for region buffering and rounding calculations -->
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
   
   <script>
     // Data placeholders, injected by python generator
@@ -659,6 +719,33 @@
     "hull_type": "polygon"
   }
 };
+    const config = {
+  "theme": "light",
+  "zone_buffer_radius_km": 40,
+  "html_title": "GeoExplorer Premium Map",
+  "sidebar_title": "GeoExplorer Premium",
+  "sidebar_subtitle": "Customizable Geographic Exploration Portal",
+  "label_total_sites": "Total Locations",
+  "label_buckets": "Regions",
+  "search_placeholder": "Search region or point of interest...",
+  "bucket_colors": {
+    "Pacific Ring of Fire": "#f43f5e",
+    "Mediterranean Antiquity": "#3b82f6",
+    "Andean Exploration": "#eab308",
+    "Sub-Saharan Safaris": "#10b981"
+  },
+  "default_colors": [
+    "#f43f5e",
+    "#3b82f6",
+    "#eab308",
+    "#10b981",
+    "#8b5cf6",
+    "#ec4899",
+    "#f97316",
+    "#14b8a6",
+    "#6366f1"
+  ]
+};
 
     // Initialize state
     const state = {
@@ -676,8 +763,12 @@
     // Add scale indicator (positioned bottom right, styled nicely)
     L.control.attribution({ prefix: false, position: 'bottomright' }).addTo(map);
 
-    // CartoDB Dark Matter tile layer
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    // Choose tile layer based on configuration theme
+    const tileLayerUrl = (config.theme === 'light')
+      ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
+      : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+
+    L.tileLayer(tileLayerUrl, {
       maxZoom: 20,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
     }).addTo(map);
@@ -739,38 +830,46 @@
 
     // Initialize all map shapes and markers
     function initMapLayers() {
+      const bufferRadius = config.zone_buffer_radius_km || 40;
+
       // 1. Create region overlays for each bucket
       Object.entries(bucketData).forEach(([bucketName, info]) => {
         const color = info.color;
         const hullCoords = info.hull;
         const type = info.hull_type;
 
-        if (type === 'polygon' && hullCoords.length >= 3) {
-          // Draw standard translucent polygon
-          leafletOverlays[bucketName] = L.polygon(hullCoords, {
-            color: color,
-            fillColor: color,
-            fillOpacity: 0.12,
-            weight: 1.5,
-            dashArray: '5, 5',
-            className: 'bucket-polygon'
-          }).addTo(map);
-        } else if (type === 'polyline' && hullCoords.length === 2) {
-          // Draw connecting line for 2 points
-          leafletOverlays[bucketName] = L.polyline(hullCoords, {
-            color: color,
-            weight: 3,
-            opacity: 0.4
-          }).addTo(map);
-        } else if (type === 'circle' && hullCoords.length === 1) {
-          // Draw a circle of radius 40km for 1 point
-          leafletOverlays[bucketName] = L.circle(hullCoords[0], {
-            color: color,
-            fillColor: color,
-            fillOpacity: 0.15,
-            radius: 40000, // 40km radius
-            weight: 1,
-            dashArray: '3, 3'
+        if (hullCoords.length === 0) return;
+
+        let geojson = null;
+        try {
+          if (hullCoords.length === 1) {
+            // Buffer a single point to make a circle
+            const pt = turf.point([hullCoords[0][1], hullCoords[0][0]]); // [lon, lat]
+            geojson = turf.buffer(pt, bufferRadius, {units: 'kilometers'});
+          } else if (hullCoords.length === 2) {
+            // Buffer a line to make a stretched capsule (stretched circle)
+            const line = turf.lineString(hullCoords.map(c => [c[1], c[0]]));
+            geojson = turf.buffer(line, bufferRadius, {units: 'kilometers'});
+          } else {
+            // Buffer a polygon (closed loop)
+            const coords = hullCoords.map(c => [c[1], c[0]]);
+            coords.push([hullCoords[0][1], hullCoords[0][0]]); // close loop
+            const poly = turf.polygon([coords]);
+            geojson = turf.buffer(poly, bufferRadius, {units: 'kilometers'});
+          }
+        } catch (e) {
+          console.error("Error buffering region for " + bucketName + ":", e);
+        }
+
+        if (geojson) {
+          leafletOverlays[bucketName] = L.geoJSON(geojson, {
+            style: {
+              color: color,
+              fillColor: color,
+              fillOpacity: 0.15,
+              weight: 2,
+              dashArray: '5, 5'
+            }
           }).addTo(map);
         }
       });

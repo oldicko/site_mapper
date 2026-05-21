@@ -12,6 +12,8 @@ import csv
 import argparse
 
 DEFAULT_CONFIG = {
+    "theme": "dark",
+    "zone_buffer_radius_km": 40,
     "html_title": "GeoBucket Site Explorer",
     "sidebar_title": "GeoBucket Explorer",
     "sidebar_subtitle": "Interactive site planner & geographic regions",
@@ -353,10 +355,15 @@ def main():
     # 6. Inject JSON data and custom text into template
     site_data_json = json.dumps(sites, indent=2)
     bucket_data_json = json.dumps(bucket_data, indent=2)
+    config_json = json.dumps(config, indent=2)
+    
+    theme_class = "light-mode" if config.get("theme") == "light" else ""
     
     output_html = template_content
     output_html = output_html.replace("{{SITE_DATA_JSON}}", site_data_json)
     output_html = output_html.replace("{{BUCKET_DATA_JSON}}", bucket_data_json)
+    output_html = output_html.replace("{{CONFIG_JSON}}", config_json)
+    output_html = output_html.replace("{{THEME_CLASS}}", theme_class)
     output_html = output_html.replace("{{MAP_TITLE}}", config["html_title"])
     output_html = output_html.replace("{{SIDEBAR_TITLE}}", config["sidebar_title"])
     output_html = output_html.replace("{{MAP_SUBTITLE}}", config["sidebar_subtitle"])
