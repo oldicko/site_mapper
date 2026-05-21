@@ -1,0 +1,25 @@
+{
+  "html_title": "GeoExplorer Premium Map",
+  "sidebar_title": "GeoExplorer Premium",
+  "sidebar_subtitle": "Customizable Geographic Exploration Portal",
+  "label_total_sites": "Total Locations",
+  "label_buckets": "Regions",
+  "search_placeholder": "Search region or point of interest...",
+  "bucket_colors": {
+    "Pacific Ring of Fire": "#f43f5e",
+    "Mediterranean Antiquity": "#3b82f6",
+    "Andean Exploration": "#eab308",
+    "Sub-Saharan Safaris": "#10b981"
+  },
+  "default_colors": [
+    "#f43f5e",
+    "#3b82f6",
+    "#eab308",
+    "#10b981",
+    "#8b5cf6",
+    "#ec4899",
+    "#f97316",
+    "#14b8a6",
+    "#6366f1"
+  ]
+}
