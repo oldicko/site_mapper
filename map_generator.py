@@ -207,7 +207,22 @@ def parse_csv(csv_path):
     if not os.path.exists(csv_path):
         raise FileNotFoundError(f"CSV file not found: {csv_path}")
         
-    with open(csv_path, 'r', encoding='utf-8') as f:
+    # Probe for the correct encoding
+    encoding = None
+    encodings = ['utf-8-sig', 'cp1252', 'utf-16']
+    for enc in encodings:
+        try:
+            with open(csv_path, 'r', encoding=enc) as f:
+                f.read()
+            encoding = enc
+            break
+        except UnicodeDecodeError:
+            continue
+            
+    if encoding is None:
+        encoding = 'utf-8-sig'
+        
+    with open(csv_path, 'r', encoding=encoding, errors='replace') as f:
         # Detect delimiter/format or fall back to standard reader
         try:
             dialect = csv.Sniffer().sniff(f.read(1024))
