@@ -1,5 +1,6 @@
 {
   "theme": "light",
+  "tile_provider": "esri",
   "zone_buffer_radius_km": 3500,
   "prevent_overlaps": true,
   "html_title": "GeoExplorer Premium Map",

@@ -569,14 +569,39 @@
     // Add scale indicator (positioned bottom right, styled nicely)
     L.control.attribution({ prefix: false, position: 'bottomright' }).addTo(map);
 
-    // Choose tile layer based on configuration theme
-    const tileLayerUrl = (config.theme === 'light')
-      ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
-      : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+    // Choose tile layer based on configuration (default: 'esri' Canvas matching theme)
+    const provider = config.tile_provider || 'esri';
+    let tileUrl = '';
+    let tileAttribution = '';
+    let maxNativeZoom = 19;
 
-    L.tileLayer(tileLayerUrl, {
+    if (provider === 'osm') {
+      tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+      tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+      maxNativeZoom = 19;
+    } else if (provider === 'esri_topo') {
+      tileUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}';
+      tileAttribution = 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community';
+      maxNativeZoom = 18;
+    } else if (provider === 'esri_imagery') {
+      tileUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+      tileAttribution = 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
+      maxNativeZoom = 18;
+    } else {
+      // Default: Esri Canvas (Light / Dark matching theme, no API key required)
+      if (config.theme === 'light') {
+        tileUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+      } else {
+        tileUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+      }
+      tileAttribution = 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ';
+      maxNativeZoom = 16;
+    }
+
+    L.tileLayer(tileUrl, {
       maxZoom: 20,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+      maxNativeZoom: maxNativeZoom,
+      attribution: tileAttribution
     }).addTo(map);
 
     // Reposition zoom control to bottom right

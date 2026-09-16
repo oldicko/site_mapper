@@ -13,6 +13,7 @@ import argparse
 
 DEFAULT_CONFIG = {
     "theme": "dark",
+    "tile_provider": "esri",
     "zone_buffer_radius_km": 40,
     "prevent_overlaps": False,
     "html_title": "GeoBucket Site Explorer",
