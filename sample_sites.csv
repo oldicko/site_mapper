@@ -1,16 +1,16 @@
-site name,latitude,longitude,bucket tag
-Mount Fuji,35.3606,138.7274,Pacific Ring of Fire
-Mount Ruapehu,-39.2792,175.5639,Pacific Ring of Fire
-Mount Rainier,46.8523,-121.7603,Pacific Ring of Fire
-Krakatoa,-6.1021,105.4230,Pacific Ring of Fire
-Colosseum,41.8902,12.4922,Mediterranean Antiquity
-Parthenon,37.9715,23.7257,Mediterranean Antiquity
-Ephesus,37.9390,27.3417,Mediterranean Antiquity
-Carthage,36.8529,10.3217,Mediterranean Antiquity
-Machu Picchu,-13.1631,-72.5450,Andean Exploration
-Salar de Uyuni,-20.1338,-67.4891,Andean Exploration
-Tiwanaku,-16.5548,-68.6732,Andean Exploration
-Sacsayhuamán,-13.5079,-71.9822,Andean Exploration
-Serengeti National Park,-2.1540,34.6857,Sub-Saharan Safaris
-Maasai Mara,-1.5271,35.1919,Sub-Saharan Safaris
-Kruger National Park,-23.9884,31.5547,Sub-Saharan Safaris
+site name,latitude,longitude,bucket tag,status,complexity
+Mount Fuji,35.3606,138.7274,Pacific Ring of Fire,complete,large
+Mount Ruapehu,-39.2792,175.5639,Pacific Ring of Fire,in progress,medium
+Mount Rainier,46.8523,-121.7603,Pacific Ring of Fire,Not started,large
+Krakatoa,-6.1021,105.4230,Pacific Ring of Fire,in progress,small
+Colosseum,41.8902,12.4922,Mediterranean Antiquity,complete,small
+Parthenon,37.9715,23.7257,Mediterranean Antiquity,complete,medium
+Ephesus,37.9390,27.3417,Mediterranean Antiquity,in progress,small
+Carthage,36.8529,10.3217,Mediterranean Antiquity,Not started,medium
+Machu Picchu,-13.1631,-72.5450,Andean Exploration,complete,large
+Salar de Uyuni,-20.1338,-67.4891,Andean Exploration,in progress,medium
+Tiwanaku,-16.5548,-68.6732,Andean Exploration,Not started,small
+Sacsayhuamán,-13.5079,-71.9822,Andean Exploration,Not started,medium
+Serengeti National Park,-2.1540,34.6857,Sub-Saharan Safaris,complete,large
+Maasai Mara,-1.5271,35.1919,Sub-Saharan Safaris,in progress,medium
+Kruger National Park,-23.9884,31.5547,Sub-Saharan Safaris,Not started,small

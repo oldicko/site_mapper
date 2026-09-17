@@ -43,7 +43,7 @@
       --popup-bg: rgba(18, 18, 22, 0.9);
       --popup-shadow: rgba(0, 0, 0, 0.6);
       --popup-badge-bg: rgba(255, 255, 255, 0.05);
-      --popup-badge-border: rgba(255, 255, 255, 0.05);
+      --popup-badge-border: rgba(255, 255, 255, 0.06);
       --popup-badge-text: var(--text-muted);
       --popup-coords-text: rgba(255, 255, 255, 0.3);
       --sidebar-shadow: rgba(0, 0, 0, 0.5);
@@ -74,10 +74,10 @@
       --slider-bg: rgba(0, 0, 0, 0.06);
       --slider-dot: #fff;
       --site-list-bg: rgba(0, 0, 0, 0.02);
-      --popup-bg: rgba(255, 255, 255, 0.9);
+      --popup-bg: rgba(255, 255, 255, 0.92);
       --popup-shadow: rgba(0, 0, 0, 0.1);
       --popup-badge-bg: rgba(0, 0, 0, 0.03);
-      --popup-badge-border: rgba(0, 0, 0, 0.04);
+      --popup-badge-border: rgba(0, 0, 0, 0.05);
       --popup-badge-text: var(--text-muted);
       --popup-coords-text: rgba(0, 0, 0, 0.4);
       --sidebar-shadow: rgba(0, 0, 0, 0.06);
@@ -118,7 +118,7 @@
       top: 20px;
       left: 20px;
       bottom: 20px;
-      width: 380px;
+      width: 400px;
       background: var(--panel-bg);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -132,7 +132,7 @@
     }
 
     .sidebar-header {
-      padding: 24px;
+      padding: 22px 24px 16px 24px;
       border-bottom: 1px solid var(--panel-border);
     }
 
@@ -157,7 +157,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
-      padding: 0 24px 20px 24px;
+      padding: 16px 24px 16px 24px;
       border-bottom: 1px solid var(--panel-border);
     }
 
@@ -165,7 +165,7 @@
       background: var(--stat-card-bg);
       border: 1px solid var(--stat-card-border);
       border-radius: 10px;
-      padding: 12px;
+      padding: 10px 12px;
       text-align: center;
     }
 
@@ -181,24 +181,118 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
       margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    /* Search */
+    /* View Dimension Selector Component */
+    .sidebar-view-container {
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--panel-border);
+    }
+
+    .view-selector-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .view-selector-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .view-selector {
+      display: flex;
+      background: var(--stat-card-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 10px;
+      padding: 3px;
+      gap: 4px;
+    }
+
+    .view-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 7px 10px;
+      font-family: var(--font-family);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap;
+    }
+
+    .view-btn:hover {
+      color: var(--text-main);
+      background: var(--card-hover);
+    }
+
+    .view-btn.active {
+      background: var(--accent);
+      color: #ffffff;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.35);
+    }
+
+    /* Floating View Control on Map */
+    .map-view-control {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: var(--panel-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      padding: 5px 8px;
+      box-shadow: 0 10px 30px var(--sidebar-shadow);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .map-view-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      padding-left: 6px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Search Box */
     .search-container {
-      padding: 16px 24px;
+      padding: 14px 24px;
       border-bottom: 1px solid var(--panel-border);
       position: relative;
     }
 
     .search-input {
       width: 100%;
-      padding: 12px 16px 12px 40px;
+      padding: 10px 16px 10px 40px;
       background: var(--search-bg);
       border: 1px solid var(--search-border);
       border-radius: 10px;
       color: var(--text-main);
       font-family: var(--font-family);
-      font-size: 14px;
+      font-size: 13px;
       outline: none;
       transition: all 0.2s;
     }
@@ -245,12 +339,12 @@
       background: var(--scroll-thumb-hover);
     }
 
-    /* Bucket Card styling */
+    /* Bucket / Category Card styling */
     .bucket-card {
       background: var(--card-bg);
       border: 1px solid var(--panel-border);
       border-radius: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       overflow: hidden;
       transition: all 0.2s ease;
     }
@@ -261,7 +355,7 @@
     }
 
     .bucket-header {
-      padding: 14px 16px;
+      padding: 12px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -285,9 +379,10 @@
     }
 
     .bucket-name {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--text-main);
+      text-transform: capitalize;
     }
 
     .bucket-actions {
@@ -355,7 +450,7 @@
       box-shadow: 0 0 6px var(--toggle-color);
     }
 
-    /* Site list under bucket */
+    /* Site list under category card */
     .site-list {
       max-height: 0;
       overflow: hidden;
@@ -366,12 +461,13 @@
 
     .bucket-card.expanded .site-list {
       max-height: 500px;
+      overflow-y: auto;
       border-top: 1px solid var(--panel-border);
     }
 
     .site-item {
-      padding: 10px 16px 10px 40px;
-      font-size: 13px;
+      padding: 9px 16px 9px 38px;
+      font-size: 12.5px;
       color: var(--text-muted);
       cursor: pointer;
       display: flex;
@@ -385,15 +481,25 @@
       color: var(--text-main);
     }
 
+    .site-subtag {
+      font-size: 11px;
+      color: var(--text-muted);
+      opacity: 0.8;
+    }
+
     .site-coordinates {
       font-size: 10px;
-      color: rgba(255, 255, 255, 0.25);
+      color: rgba(255, 255, 255, 0.3);
       font-family: monospace;
+    }
+
+    .light-mode .site-coordinates {
+      color: rgba(0, 0, 0, 0.35);
     }
 
     /* Toggled Off state */
     .bucket-card.toggled-off {
-      opacity: 0.55;
+      opacity: 0.5;
     }
     
     .bucket-card.toggled-off .bucket-name {
@@ -465,35 +571,78 @@
     .popup-title {
       font-size: 15px;
       font-weight: 600;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       color: var(--text-main);
     }
 
-    .popup-bucket {
+    .popup-badges-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin: 8px 0 6px 0;
+    }
+
+    .popup-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: var(--popup-badge-bg);
+      border: 1px solid var(--popup-badge-border);
+      font-size: 11px;
+      transition: all 0.15s ease;
+    }
+
+    .popup-badge-row.active-dim {
+      border-color: var(--active-dim-color);
+      background: rgba(59, 130, 246, 0.08);
+      font-weight: 600;
+    }
+
+    .popup-badge-tag {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 11px;
-      color: var(--popup-badge-text);
-      background: var(--popup-badge-bg);
-      padding: 2px 8px;
-      border-radius: 20px;
-      border: 1px solid var(--popup-badge-border);
+      color: var(--text-main);
+      text-transform: capitalize;
+    }
+
+    .popup-badge-label {
+      color: var(--text-muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .popup-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
     }
 
     .popup-coords {
       font-size: 10px;
       color: var(--popup-coords-text);
-      margin-top: 8px;
+      margin-top: 6px;
       font-family: monospace;
     }
 
     /* Responsive */
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       .sidebar {
         width: calc(100% - 40px);
         bottom: auto;
-        max-height: 40vh;
+        max-height: 48vh;
+      }
+
+      .map-view-control {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+        left: 20px;
+        justify-content: center;
       }
     }
   </style>
@@ -516,23 +665,62 @@
           <div class="stat-label">{{LABEL_TOTAL_SITES}}</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value" id="stat-active-buckets">0</div>
-          <div class="stat-label">{{LABEL_BUCKETS}}</div>
+          <div class="stat-value" id="stat-active-groups">0</div>
+          <div class="stat-label" id="stat-active-label">{{LABEL_BUCKETS}}</div>
+        </div>
+      </div>
+
+      <!-- View Dimension Selector inside Sidebar -->
+      <div class="sidebar-view-container">
+        <div class="view-selector-header">
+          <span class="view-selector-label">Categorize Sites By</span>
+        </div>
+        <div class="view-selector">
+          <button class="view-btn active" data-view="bucket" onclick="setViewMode('bucket')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+            <span>{{LABEL_BUCKET_BTN}}</span>
+          </button>
+          <button class="view-btn" data-view="status" onclick="setViewMode('status')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span>{{LABEL_STATUS_BTN}}</span>
+          </button>
+          <button class="view-btn" data-view="complexity" onclick="setViewMode('complexity')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span>{{LABEL_COMPLEXITY_BTN}}</span>
+          </button>
         </div>
       </div>
 
       <!-- Search Box -->
       <div class="search-container">
-        <!-- SVG magnifying glass -->
         <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
         </svg>
         <input type="text" class="search-input" id="search-bar" placeholder="{{SEARCH_PLACEHOLDER}}">
       </div>
 
-      <!-- Bucket List -->
+      <!-- Category / Group List -->
       <div class="sidebar-content" id="bucket-list-container">
         <!-- Dynamic content will be rendered here by JS -->
+      </div>
+    </div>
+
+    <!-- Floating View Dimension Selector on Map Canvas -->
+    <div class="map-view-control">
+      <span class="map-view-label">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+        View:
+      </span>
+      <div class="view-selector">
+        <button class="view-btn active" data-view="bucket" onclick="setViewMode('bucket')">
+          <span>{{LABEL_BUCKET_BTN}}</span>
+        </button>
+        <button class="view-btn" data-view="status" onclick="setViewMode('status')">
+          <span>{{LABEL_STATUS_BTN}}</span>
+        </button>
+        <button class="view-btn" data-view="complexity" onclick="setViewMode('complexity')">
+          <span>{{LABEL_COMPLEXITY_BTN}}</span>
+        </button>
       </div>
     </div>
 
@@ -551,25 +739,48 @@
     // Data placeholders, injected by python generator
     const siteData = {{SITE_DATA_JSON}};
     const bucketData = {{BUCKET_DATA_JSON}};
+    const groupsData = {{GROUPS_DATA_JSON}};
     const config = {{CONFIG_JSON}};
+    const defaultView = "{{DEFAULT_VIEW}}" || 'bucket';
+    const labelBuckets = "{{LABEL_BUCKETS}}";
+    const labelStatus = "{{LABEL_STATUS}}";
+    const labelComplexity = "{{LABEL_COMPLEXITY}}";
 
     // Initialize state
     const state = {
+      currentView: defaultView,
       searchQuery: '',
-      toggledBuckets: {},
-      expandedBuckets: {}
+      toggledGroups: {
+        bucket: {},
+        status: {},
+        complexity: {}
+      },
+      expandedGroups: {
+        bucket: {},
+        status: {},
+        complexity: {}
+      }
     };
 
-    // Initialize Map
-    const map = L.map('map', {
-      zoomControl: false, // Hide zoom control to keep UI clean, or reposition it
-      attributionControl: false
-    }).setView([20, 0], 2); // Default zoom level showing the world
+    // Populate toggled & expanded states for all dimensions
+    ['bucket', 'status', 'complexity'].forEach(dim => {
+      if (groupsData && groupsData[dim]) {
+        Object.keys(groupsData[dim]).forEach(groupVal => {
+          state.toggledGroups[dim][groupVal] = true; // All on by default
+          state.expandedGroups[dim][groupVal] = false; // Collapsed by default
+        });
+      }
+    });
 
-    // Add scale indicator (positioned bottom right, styled nicely)
+    // Initialize Leaflet Map
+    const map = L.map('map', {
+      zoomControl: false,
+      attributionControl: false
+    }).setView([20, 0], 2);
+
     L.control.attribution({ prefix: false, position: 'bottomright' }).addTo(map);
 
-    // Choose tile layer based on configuration (default: 'esri' Canvas matching theme)
+    // Choose tile layer based on configuration
     const provider = config.tile_provider || 'esri';
     let tileUrl = '';
     let tileAttribution = '';
@@ -581,14 +792,13 @@
       maxNativeZoom = 19;
     } else if (provider === 'esri_topo') {
       tileUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}';
-      tileAttribution = 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community';
+      tileAttribution = 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom';
       maxNativeZoom = 18;
     } else if (provider === 'esri_imagery') {
       tileUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
-      tileAttribution = 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
+      tileAttribution = 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS';
       maxNativeZoom = 18;
     } else {
-      // Default: Esri Canvas (Light / Dark matching theme, no API key required)
       if (config.theme === 'light') {
         tileUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
       } else {
@@ -604,33 +814,16 @@
       attribution: tileAttribution
     }).addTo(map);
 
-    // Reposition zoom control to bottom right
-    L.control.zoom({
-      position: 'bottomright'
-    }).addTo(map);
+    // Zoom control at bottom right
+    L.control.zoom({ position: 'bottomright' }).addTo(map);
 
     // Dictionaries to hold leaflet layer instances
     const leafletMarkers = {}; // site_name -> marker instance
-    const leafletOverlays = {}; // bucket_name -> polygon/polyline/circle instance
-
-    // Initialize toggles and expansions for buckets
-    Object.keys(bucketData).forEach(bucketName => {
-      state.toggledBuckets[bucketName] = true; // All on by default
-      state.expandedBuckets[bucketName] = false; // Collapsed by default
-    });
-
-    // Compute bounds and fit map to display all sites initially
-    function fitMapToSites() {
-      const activeCoords = [];
-      siteData.forEach(site => {
-        if (state.toggledBuckets[site.bucket]) {
-          activeCoords.push([site.lat, site.lon]);
-        }
-      });
-      if (activeCoords.length > 0) {
-        map.fitBounds(activeCoords, { padding: [50, 50], maxZoom: 8 });
-      }
-    }
+    const leafletOverlays = {
+      bucket: {},
+      status: {},
+      complexity: {}
+    }; // dim -> group_val -> leaflet geojson layer
 
     // Helper: Create HTML element for custom marker
     function createCustomMarkerIcon(color) {
@@ -645,244 +838,352 @@
       });
     }
 
-    // Create marker popup HTML
-    function createPopupContent(site, color) {
+    // Helper: Create marker popup HTML showcasing bucket, status, and complexity
+    function createPopupContent(site) {
+      const activeDim = state.currentView;
+      const bColor = (groupsData.bucket && groupsData.bucket[site.bucket]) ? groupsData.bucket[site.bucket].color : '#3b82f6';
+      const sColor = (groupsData.status && groupsData.status[site.status]) ? groupsData.status[site.status].color : '#94a3b8';
+      const cColor = (groupsData.complexity && groupsData.complexity[site.complexity]) ? groupsData.complexity[site.complexity].color : '#f59e0b';
+
       return `
-        <div style="padding: 4px;">
+        <div style="padding: 4px; min-width: 200px;">
           <div class="popup-title">${site.name}</div>
-          <div class="popup-bucket">
-            <span style="width: 8px; height: 8px; border-radius: 50%; background: ${color}; display: inline-block;"></span>
-            ${site.bucket}
+          <div class="popup-badges-list">
+            <div class="popup-badge-row ${activeDim === 'bucket' ? 'active-dim' : ''}" style="--active-dim-color: ${bColor}">
+              <span class="popup-badge-label">${config.label_bucket_btn || 'Bucket'}</span>
+              <span class="popup-badge-tag">
+                <span class="popup-dot" style="background: ${bColor}"></span>
+                <span>${site.bucket}</span>
+              </span>
+            </div>
+            <div class="popup-badge-row ${activeDim === 'status' ? 'active-dim' : ''}" style="--active-dim-color: ${sColor}">
+              <span class="popup-badge-label">${config.label_status_btn || config.label_status || 'Status'}</span>
+              <span class="popup-badge-tag">
+                <span class="popup-dot" style="background: ${sColor}"></span>
+                <span>${site.status || 'N/A'}</span>
+              </span>
+            </div>
+            <div class="popup-badge-row ${activeDim === 'complexity' ? 'active-dim' : ''}" style="--active-dim-color: ${cColor}">
+              <span class="popup-badge-label">${config.label_complexity_btn || config.label_complexity || 'Complexity'}</span>
+              <span class="popup-badge-tag">
+                <span class="popup-dot" style="background: ${cColor}"></span>
+                <span>${site.complexity || 'N/A'}</span>
+              </span>
+            </div>
           </div>
           <div class="popup-coords">${site.lat.toFixed(4)}, ${site.lon.toFixed(4)}</div>
         </div>
       `;
     }
 
-    // Initialize all map shapes and markers
-    function initMapLayers() {
-      const bufferRadius = config.zone_buffer_radius_km || 40;
-      const preventOverlays = config.prevent_overlaps || false;
-
-      // Map to hold custom processed geojson overlays
-      const rawBuffers = {};
-      const bucketOverlayData = {};
-
-      // First, generate raw buffers for each bucket
-      Object.entries(bucketData).forEach(([bucketName, info]) => {
-        const hullCoords = info.hull;
-        if (hullCoords.length === 0) return;
-
-        let geojson = null;
-        try {
-          if (hullCoords.length === 1) {
-            const pt = turf.point([hullCoords[0][1], hullCoords[0][0]]);
-            geojson = turf.buffer(pt, bufferRadius, {units: 'kilometers'});
-          } else if (hullCoords.length === 2) {
-            const line = turf.lineString(hullCoords.map(c => [c[1], c[0]]));
-            geojson = turf.buffer(line, bufferRadius, {units: 'kilometers'});
-          } else {
-            const coords = hullCoords.map(c => [c[1], c[0]]);
-            coords.push([hullCoords[0][1], hullCoords[0][0]]);
-            const poly = turf.polygon([coords]);
-            geojson = turf.buffer(poly, bufferRadius, {units: 'kilometers'});
-          }
-        } catch (e) {
-          console.error("Error buffering region for " + bucketName + ":", e);
-        }
-        if (geojson) {
-          rawBuffers[bucketName] = geojson;
+    // Compute bounds and fit map to display all currently visible sites
+    function fitMapToSites() {
+      const activeDim = state.currentView;
+      const activeCoords = [];
+      siteData.forEach(site => {
+        const groupVal = site[activeDim];
+        if (state.toggledGroups[activeDim][groupVal] !== false) {
+          activeCoords.push([site.lat, site.lon]);
         }
       });
+      if (activeCoords.length > 0) {
+        map.fitBounds(activeCoords, { padding: [50, 50], maxZoom: 8 });
+      }
+    }
 
-      // If we want to prevent overlaps, clip them using Voronoi cells of all sites
-      if (preventOverlays && siteData.length > 1) {
-        try {
-          // Convert all sites to Turf points
-          const points = siteData.map((site, index) => {
-            return turf.point([site.lon, site.lat], { index: index, bucket: site.bucket, name: site.name });
-          });
-          const pointsFC = turf.featureCollection(points);
+    // Initialize all map shapes and markers
+    function initMapLayers() {
+      const showBoundaries = (config.show_bucket_boundaries !== undefined)
+        ? config.show_bucket_boundaries
+        : (config.show_boundaries !== undefined ? config.show_boundaries : true);
 
-          // Bounding box covering a massive range to ensure no cutoff
-          const bbox = [-180, -85, 180, 85];
-          const voronoiPolys = turf.voronoi(pointsFC, { bbox: bbox });
+      // Build region boundaries for each dimension if enabled
+      if (showBoundaries) {
+        const bufferRadius = config.zone_buffer_radius_km || 40;
+        const preventOverlays = config.prevent_overlaps || false;
 
-          // Map each site to its Voronoi cell polygon
-          const siteCells = new Map();
-          voronoiPolys.features.forEach((cell, cellIdx) => {
-            if (!cell) return;
-            // Find which site is inside this cell using booleanPointInPolygon
-            const ownerPoint = points.find(pt => turf.booleanPointInPolygon(pt, cell));
-            if (ownerPoint) {
-              siteCells.set(ownerPoint.properties.name, cell);
+        ['bucket', 'status', 'complexity'].forEach(dim => {
+          if (!groupsData[dim]) return;
+          const dimGroups = groupsData[dim];
+          const rawBuffers = {};
+          const dimOverlayData = {};
+
+          Object.entries(dimGroups).forEach(([groupVal, info]) => {
+            const hullCoords = info.hull;
+            if (!hullCoords || hullCoords.length === 0) return;
+
+            let geojson = null;
+            try {
+              if (hullCoords.length === 1) {
+                const pt = turf.point([hullCoords[0][1], hullCoords[0][0]]);
+                geojson = turf.buffer(pt, bufferRadius, {units: 'kilometers'});
+              } else if (hullCoords.length === 2) {
+                const line = turf.lineString(hullCoords.map(c => [c[1], c[0]]));
+                geojson = turf.buffer(line, bufferRadius, {units: 'kilometers'});
+              } else {
+                const coords = hullCoords.map(c => [c[1], c[0]]);
+                coords.push([hullCoords[0][1], hullCoords[0][0]]);
+                const poly = turf.polygon([coords]);
+                geojson = turf.buffer(poly, bufferRadius, {units: 'kilometers'});
+              }
+            } catch (e) {
+              console.error("Error buffering region for " + groupVal + ":", e);
+            }
+            if (geojson) {
+              rawBuffers[groupVal] = geojson;
             }
           });
 
-          // Build bucket influence zones (union of cell polygons of its sites)
-          const bucketInfluenceZones = {};
-          Object.keys(bucketData).forEach(bucketName => {
-            const bucketSites = siteData.filter(s => s.bucket === bucketName);
-            let influenceZone = null;
+          if (preventOverlays && siteData.length > 1) {
+            try {
+              const points = siteData.map((site, index) => {
+                return turf.point([site.lon, site.lat], { index: index, group: site[dim], name: site.name });
+              });
+              const pointsFC = turf.featureCollection(points);
+              const bbox = [-180, -85, 180, 85];
+              const voronoiPolys = turf.voronoi(pointsFC, { bbox: bbox });
 
-            bucketSites.forEach(site => {
-              const cell = siteCells.get(site.name);
-              if (!cell) return;
-              if (!influenceZone) {
-                influenceZone = JSON.parse(JSON.stringify(cell)); // deep clone
-              } else {
-                try {
-                  influenceZone = turf.union(influenceZone, cell);
-                } catch (unionErr) {
-                  console.error("Union error for bucket " + bucketName + ":", unionErr);
+              const siteCells = new Map();
+              voronoiPolys.features.forEach((cell) => {
+                if (!cell) return;
+                const ownerPoint = points.find(pt => turf.booleanPointInPolygon(pt, cell));
+                if (ownerPoint) {
+                  siteCells.set(ownerPoint.properties.name, cell);
                 }
+              });
+
+              const groupInfluenceZones = {};
+              Object.keys(dimGroups).forEach(groupVal => {
+                const groupSites = siteData.filter(s => s[dim] === groupVal);
+                let influenceZone = null;
+
+                groupSites.forEach(site => {
+                  const cell = siteCells.get(site.name);
+                  if (!cell) return;
+                  if (!influenceZone) {
+                    influenceZone = JSON.parse(JSON.stringify(cell));
+                  } else {
+                    try {
+                      influenceZone = turf.union(influenceZone, cell);
+                    } catch (unionErr) {
+                      console.error("Union error for " + groupVal + ":", unionErr);
+                    }
+                  }
+                });
+
+                if (influenceZone) {
+                  groupInfluenceZones[groupVal] = influenceZone;
+                }
+              });
+
+              Object.entries(rawBuffers).forEach(([groupVal, rawBuffer]) => {
+                const influenceZone = groupInfluenceZones[groupVal];
+                let finalGeom = rawBuffer;
+
+                if (influenceZone) {
+                  try {
+                    const intersection = turf.intersect(rawBuffer, influenceZone);
+                    if (intersection) finalGeom = intersection;
+                  } catch (intersectErr) {
+                    console.error("Intersection error for " + groupVal + ":", intersectErr);
+                  }
+                }
+                dimOverlayData[groupVal] = finalGeom;
+              });
+            } catch (voronoiErr) {
+              Object.entries(rawBuffers).forEach(([groupVal, rawBuffer]) => {
+                dimOverlayData[groupVal] = rawBuffer;
+              });
+            }
+          } else {
+            Object.entries(rawBuffers).forEach(([groupVal, rawBuffer]) => {
+              dimOverlayData[groupVal] = rawBuffer;
+            });
+          }
+
+          // Build Leaflet GeoJSON layer for each group
+          Object.entries(dimOverlayData).forEach(([groupVal, geojson]) => {
+            const color = dimGroups[groupVal].color;
+            const layer = L.geoJSON(geojson, {
+              style: {
+                color: color,
+                fillColor: color,
+                fillOpacity: 0.15,
+                weight: 2,
+                dashArray: '5, 5'
               }
             });
+            leafletOverlays[dim][groupVal] = layer;
 
-            if (influenceZone) {
-              bucketInfluenceZones[bucketName] = influenceZone;
+            if (dim === state.currentView) {
+              layer.addTo(map);
             }
           });
-
-          // Intersect raw buffer of each bucket with its influence zone
-          Object.entries(rawBuffers).forEach(([bucketName, rawBuffer]) => {
-            const influenceZone = bucketInfluenceZones[bucketName];
-            let finalGeom = rawBuffer;
-
-            if (influenceZone) {
-              try {
-                const intersection = turf.intersect(rawBuffer, influenceZone);
-                if (intersection) {
-                  finalGeom = intersection;
-                }
-              } catch (intersectErr) {
-                console.error("Intersection error for bucket " + bucketName + ":", intersectErr);
-              }
-            }
-
-            bucketOverlayData[bucketName] = finalGeom;
-          });
-        } catch (voronoiErr) {
-          console.error("Error computing Voronoi partition, falling back to raw buffers:", voronoiErr);
-          // Fallback to raw buffers
-          Object.entries(rawBuffers).forEach(([bucketName, rawBuffer]) => {
-            bucketOverlayData[bucketName] = rawBuffer;
-          });
-        }
-      } else {
-        // Just use raw buffers if preventOverlays is false or <= 1 site
-        Object.entries(rawBuffers).forEach(([bucketName, rawBuffer]) => {
-          bucketOverlayData[bucketName] = rawBuffer;
         });
       }
 
-      // Add overlays to map
-      Object.entries(bucketOverlayData).forEach(([bucketName, geojson]) => {
-        const color = bucketData[bucketName].color;
-        leafletOverlays[bucketName] = L.geoJSON(geojson, {
-          style: {
-            color: color,
-            fillColor: color,
-            fillOpacity: 0.15,
-            weight: 2,
-            dashArray: '5, 5'
-          }
-        }).addTo(map);
-      });
-
-      // 2. Create markers for each site
+      // Create Leaflet marker for each site
       siteData.forEach(site => {
-        const bucketInfo = bucketData[site.bucket];
-        const color = bucketInfo ? bucketInfo.color : '#ffffff';
+        const activeDim = state.currentView;
+        const groupVal = site[activeDim];
+        const color = (groupsData[activeDim] && groupsData[activeDim][groupVal]) 
+          ? groupsData[activeDim][groupVal].color 
+          : '#ffffff';
         
         const marker = L.marker([site.lat, site.lon], {
           icon: createCustomMarkerIcon(color)
         });
 
-        marker.bindPopup(createPopupContent(site, color), {
+        marker.bindPopup(createPopupContent(site), {
           offset: [0, -5]
         });
 
-        // Add to map initially
         marker.addTo(map);
         leafletMarkers[site.name] = marker;
       });
     }
 
-    // Perform rendering of UI and updates to Map layers based on state
-    function updateApp() {
-      // Get filtered list of sites
-      const query = state.searchQuery.toLowerCase();
+    // Switch active view dimension (bucket, status, or complexity)
+    window.setViewMode = function(newView) {
+      if (state.currentView === newView) return;
       
-      let totalSitesCount = 0;
-      let activeBucketsCount = 0;
+      const oldView = state.currentView;
+      state.currentView = newView;
 
-      // Render the bucket list inside sidebar
+      // Update selector buttons active states in both sidebar and map
+      document.querySelectorAll('.view-btn').forEach(btn => {
+        if (btn.getAttribute('data-view') === newView) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      // Remove overlays of old dimension
+      if (leafletOverlays[oldView]) {
+        Object.values(leafletOverlays[oldView]).forEach(layer => {
+          if (map.hasLayer(layer)) map.removeLayer(layer);
+        });
+      }
+
+      // Update marker icons and popups
+      siteData.forEach(site => {
+        const groupVal = site[newView];
+        const groupInfo = (groupsData[newView] && groupsData[newView][groupVal]) || {};
+        const color = groupInfo.color || '#3b82f6';
+        const marker = leafletMarkers[site.name];
+        if (marker) {
+          marker.setIcon(createCustomMarkerIcon(color));
+          marker.setPopupContent(createPopupContent(site));
+        }
+      });
+
+      // Update UI, sidebar cards, and overlays
+      updateApp();
+    };
+
+    // Render sidebar cards and update layer visibility
+    function updateApp() {
+      const activeDim = state.currentView;
+      const currentGroups = (groupsData && groupsData[activeDim]) ? groupsData[activeDim] : {};
+      const query = state.searchQuery.trim().toLowerCase();
+
+      let totalSitesCount = 0;
+      let activeGroupsCount = 0;
+
+      // Update HUD/Stats labels based on active dimension
+      let groupLabel = labelBuckets;
+      if (activeDim === 'status') groupLabel = labelStatus;
+      if (activeDim === 'complexity') groupLabel = labelComplexity;
+      document.getElementById('stat-active-label').innerText = groupLabel;
+
       const container = document.getElementById('bucket-list-container');
       container.innerHTML = '';
 
-      Object.entries(bucketData).forEach(([bucketName, info]) => {
+      Object.entries(currentGroups).forEach(([groupVal, info]) => {
         const color = info.color;
-        const sitesInBucket = siteData.filter(site => site.bucket === bucketName);
-        
-        // Filter sites in this bucket by search query
-        const matchingSites = sitesInBucket.filter(site => 
-          site.name.toLowerCase().includes(query) || 
-          bucketName.toLowerCase().includes(query)
-        );
+        const sitesInGroup = siteData.filter(site => site[activeDim] === groupVal);
 
-        // Hide bucket entirely if it doesn't match search query and has no matching sites
-        if (matchingSites.length === 0 && !bucketName.toLowerCase().includes(query)) {
-          // Hide both markers and overlays from map for this bucket
-          if (leafletOverlays[bucketName]) map.removeLayer(leafletOverlays[bucketName]);
-          sitesInBucket.forEach(site => {
-            map.removeLayer(leafletMarkers[site.name]);
+        // Filter sites by search query (match site name, bucket, status, complexity, or group name)
+        const matchingSites = sitesInGroup.filter(site => {
+          if (!query) return true;
+          return site.name.toLowerCase().includes(query) ||
+                 (site.bucket && site.bucket.toLowerCase().includes(query)) ||
+                 (site.status && site.status.toLowerCase().includes(query)) ||
+                 (site.complexity && site.complexity.toLowerCase().includes(query)) ||
+                 groupVal.toLowerCase().includes(query);
+        });
+
+        const isToggledOn = state.toggledGroups[activeDim][groupVal] !== false;
+
+        // Hide group if searching and no sites match
+        if (query && matchingSites.length === 0 && !groupVal.toLowerCase().includes(query)) {
+          if (leafletOverlays[activeDim] && leafletOverlays[activeDim][groupVal]) {
+            map.removeLayer(leafletOverlays[activeDim][groupVal]);
+          }
+          sitesInGroup.forEach(site => {
+            if (map.hasLayer(leafletMarkers[site.name])) {
+              map.removeLayer(leafletMarkers[site.name]);
+            }
           });
           return;
         }
 
-        const isToggledOn = state.toggledBuckets[bucketName];
         if (isToggledOn) {
-          activeBucketsCount++;
+          activeGroupsCount++;
           totalSitesCount += matchingSites.length;
         }
 
-        // Create Bucket Card Element
+        // Create Category Card
         const card = document.createElement('div');
-        card.className = `bucket-card ${isToggledOn ? '' : 'toggled-off'} ${state.expandedBuckets[bucketName] ? 'expanded' : ''}`;
+        card.className = `bucket-card ${isToggledOn ? '' : 'toggled-off'} ${state.expandedGroups[activeDim][groupVal] ? 'expanded' : ''}`;
         card.style.setProperty('--toggle-color', color);
 
-        // HTML structure for bucket header & switch
+        const safeGroupEscaped = groupVal.replace(/'/g, "\\'");
+        const safeGroupId = encodeURIComponent(groupVal).replace(/%/g, '_');
+
         card.innerHTML = `
           <div class="bucket-header">
-            <div class="bucket-info" onclick="toggleBucketExpand('${bucketName}')">
+            <div class="bucket-info" onclick="toggleGroupExpand('${safeGroupEscaped}')">
               <span class="bucket-color-dot" style="--dot-color: ${color}"></span>
-              <span class="bucket-name">${bucketName}</span>
+              <span class="bucket-name">${groupVal}</span>
             </div>
             <div class="bucket-actions">
-              <span class="site-count-badge">${matchingSites.length} sites</span>
+              <span class="site-count-badge">${matchingSites.length} ${matchingSites.length === 1 ? 'site' : 'sites'}</span>
               <label class="switch">
-                <input type="checkbox" ${isToggledOn ? 'checked' : ''} onchange="toggleBucketVisibility('${bucketName}', this.checked)">
+                <input type="checkbox" ${isToggledOn ? 'checked' : ''} onchange="toggleGroupVisibility('${safeGroupEscaped}', this.checked)">
                 <span class="slider"></span>
               </label>
             </div>
           </div>
-          <div class="site-list" id="list-${bucketName.replace(/\s+/g, '-')}"></div>
+          <div class="site-list" id="list-${safeGroupId}"></div>
         `;
 
         container.appendChild(card);
 
-        // Populate sites inside the expanded panel
+        // Populate sites inside expanded panel
         const siteListContainer = card.querySelector('.site-list');
         matchingSites.forEach(site => {
           const siteItem = document.createElement('div');
           siteItem.className = 'site-item';
-          siteItem.innerHTML = `
-            <span>${site.name}</span>
-            <span class="site-coordinates">${site.lat.toFixed(3)}, ${site.lon.toFixed(3)}</span>
-          `;
           
-          // Focus map on site click
+          let subTag = '';
+          if (activeDim === 'bucket') {
+            subTag = `<span class="site-subtag">${site.status} • ${site.complexity}</span>`;
+          } else if (activeDim === 'status') {
+            subTag = `<span class="site-subtag">${site.bucket} • ${site.complexity}</span>`;
+          } else {
+            subTag = `<span class="site-subtag">${site.bucket} • ${site.status}</span>`;
+          }
+
+          siteItem.innerHTML = `
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+              <span style="font-weight: 500;">${site.name}</span>
+              ${subTag}
+            </div>
+            <span class="site-coordinates">${site.lat.toFixed(2)}, ${site.lon.toFixed(2)}</span>
+          `;
+
           siteItem.onclick = () => {
             if (isToggledOn) {
               focusSite(site.name);
@@ -892,14 +1193,13 @@
           siteListContainer.appendChild(siteItem);
         });
 
-        // 3. Update Map Visibility for overlay and markers
+        // Overlay & Marker map visibility
+        const overlayLayer = leafletOverlays[activeDim] ? leafletOverlays[activeDim][groupVal] : null;
         if (isToggledOn) {
-          // Show overlay
-          if (leafletOverlays[bucketName] && !map.hasLayer(leafletOverlays[bucketName])) {
-            leafletOverlays[bucketName].addTo(map);
+          if (overlayLayer && !map.hasLayer(overlayLayer)) {
+            overlayLayer.addTo(map);
           }
-          // Show/Hide markers depending on search match
-          sitesInBucket.forEach(site => {
+          sitesInGroup.forEach(site => {
             const isMatch = matchingSites.some(ms => ms.name === site.name);
             const marker = leafletMarkers[site.name];
             if (isMatch) {
@@ -909,42 +1209,43 @@
             }
           });
         } else {
-          // Hide overlay
-          if (leafletOverlays[bucketName] && map.hasLayer(leafletOverlays[bucketName])) {
-            map.removeLayer(leafletOverlays[bucketName]);
+          if (overlayLayer && map.hasLayer(overlayLayer)) {
+            map.removeLayer(overlayLayer);
           }
-          // Hide all markers for this bucket
-          sitesInBucket.forEach(site => {
+          sitesInGroup.forEach(site => {
             const marker = leafletMarkers[site.name];
             if (map.hasLayer(marker)) map.removeLayer(marker);
           });
         }
       });
 
-      // Update HUD/Stats
+      // Update counters
       document.getElementById('stat-total-sites').innerText = totalSitesCount;
-      document.getElementById('stat-active-buckets').innerText = activeBucketsCount;
+      document.getElementById('stat-active-groups').innerText = activeGroupsCount;
     }
 
-    // Toggle expansion of the bucket sites list
-    window.toggleBucketExpand = function(bucketName) {
-      state.expandedBuckets[bucketName] = !state.expandedBuckets[bucketName];
+    // Toggle expansion of group cards
+    window.toggleGroupExpand = function(groupVal) {
+      const dim = state.currentView;
+      state.expandedGroups[dim][groupVal] = !state.expandedGroups[dim][groupVal];
       updateApp();
-    }
+    };
 
-    // Toggle bucket visibility layer (checkbox control)
-    window.toggleBucketVisibility = function(bucketName, isChecked) {
-      state.toggledBuckets[bucketName] = isChecked;
-      
-      // Auto expand on visibility switch to guide user
+    // Toggle group visibility switch
+    window.toggleGroupVisibility = function(groupVal, isChecked) {
+      const dim = state.currentView;
+      state.toggledGroups[dim][groupVal] = isChecked;
       if (isChecked) {
-        state.expandedBuckets[bucketName] = true;
+        state.expandedGroups[dim][groupVal] = true;
       }
-      
       updateApp();
-    }
+    };
 
-    // Focus camera on a single site
+    // Backward-compatible wrappers
+    window.toggleBucketExpand = window.toggleGroupExpand;
+    window.toggleBucketVisibility = window.toggleGroupVisibility;
+
+    // Camera animation to focus on site
     window.focusSite = function(siteName) {
       const site = siteData.find(s => s.name === siteName);
       if (site) {
@@ -954,24 +1255,28 @@
             animate: true,
             duration: 1.2
           });
-          // Wait for panning animation, then trigger popup
           setTimeout(() => {
             marker.openPopup();
           }, 1200);
         }
       }
-    }
+    };
 
-    // Listen to Search Bar input
+    // Search bar input listener
     document.getElementById('search-bar').addEventListener('input', (e) => {
       state.searchQuery = e.target.value;
-      // Auto expand matching items to show search results clearly
-      if (state.searchQuery.length > 0) {
-        Object.keys(state.expandedBuckets).forEach(name => {
-          state.expandedBuckets[name] = true;
+      const dim = state.currentView;
+      if (state.searchQuery.length > 0 && groupsData[dim]) {
+        Object.keys(groupsData[dim]).forEach(val => {
+          state.expandedGroups[dim][val] = true;
         });
       }
       updateApp();
+    });
+
+    // Initialize initial active buttons from defaultView
+    document.querySelectorAll('.view-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-view') === defaultView);
     });
 
     // Main Init

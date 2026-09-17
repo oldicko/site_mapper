@@ -1,19 +1,71 @@
 {
   "theme": "light",
   "tile_provider": "esri",
+  "show_bucket_boundaries": false,
   "zone_buffer_radius_km": 3500,
   "prevent_overlaps": true,
   "html_title": "GeoExplorer Premium Map",
   "sidebar_title": "GeoExplorer Premium",
   "sidebar_subtitle": "Customizable Geographic Exploration Portal",
+  "default_view": "bucket",
   "label_total_sites": "Total Locations",
   "label_buckets": "Regions",
-  "search_placeholder": "Search region or point of interest...",
+  "label_status": "Statuses",
+  "label_complexity": "Complexities",
+  "search_placeholder": "Search sites, regions, status or complexity...",
+  "status_color_scheme": "default",
+  "complexity_color_scheme": "default",
   "bucket_colors": {
     "Pacific Ring of Fire": "#f43f5e",
     "Mediterranean Antiquity": "#3b82f6",
     "Andean Exploration": "#eab308",
     "Sub-Saharan Safaris": "#10b981"
+  },
+  "status_colors": {
+    "Not started": "#94a3b8",
+    "in progress": "#3b82f6",
+    "complete": "#10b981"
+  },
+  "complexity_colors": {
+    "small": "#10b981",
+    "medium": "#f59e0b",
+    "large": "#ef4444"
+  },
+  "color_schemes": {
+    "status": {
+      "default": {
+        "Not started": "#94a3b8",
+        "in progress": "#3b82f6",
+        "complete": "#10b981"
+      },
+      "traffic_light": {
+        "Not started": "#ef4444",
+        "in progress": "#f59e0b",
+        "complete": "#10b981"
+      },
+      "neon": {
+        "Not started": "#64748b",
+        "in progress": "#06b6d4",
+        "complete": "#a855f7"
+      }
+    },
+    "complexity": {
+      "default": {
+        "small": "#10b981",
+        "medium": "#f59e0b",
+        "large": "#ef4444"
+      },
+      "cool": {
+        "small": "#38bdf8",
+        "medium": "#818cf8",
+        "large": "#c084fc"
+      },
+      "warm": {
+        "small": "#fde047",
+        "medium": "#fb923c",
+        "large": "#f43f5e"
+      }
+    }
   },
   "default_colors": [
     "#f43f5e",
